@@ -29,47 +29,59 @@ public class MiColeccion {
         }
     }
 
-    // Buscar un Pokémon por nombre y que retorne sus datos
-    public Pokemon buscarPokemon(String nombre) {
-        for (Pokemon pok : pokemones) {
-            if (pok.getName().equalsIgnoreCase(nombre)) {
-                return pok;
-            }
-        }
-        return null; // Retorna null si no lo encuentra
-    }
-
-    // Retornar los nombres de los pokemones pero ordenados de acuerdo al Tipo1
     public void ordenarPorTipo() {
         if (pokemones.isEmpty()) {
             System.out.println("La colección está vacía.");
+            return;
         }
-        else{
-            List<Pokemon> pokemonesOrdenados = new ArrayList<>(pokemones); //Copia 
-            pokemonesOrdenados.sort(Comparator.comparing(Pokemon::getType1)); //los ordena
-            List<String> nombresOrdenados = new ArrayList<>();
-            for (Pokemon pok : pokemonesOrdenados) {
-                nombresOrdenados.add(pok.getName());
-            }
-            return nombresOrdenados;
-
+    
+        List<Pokemon> pokemonesOrdenados = new ArrayList<>(pokemones);
+        pokemonesOrdenados.sort(Comparator.comparing(Pokemon::getType1));
+    
+        System.out.println("Pokémon ordenados por tipo:");
+        for (Pokemon pok : pokemonesOrdenados) {
+            System.out.println("Tipo: " + pok.getType1() + " - Nombre: " + pok.getName());
         }
-    }
-
-
-    // Buscar un Pokémon por su habilidad y retorna su nombre
-    public String buscarHabilidad(String habilidad) {
-        for (Pokemon pok : pokemones) {
-            if (pok.getHabilidades().equalsIgnoreCase(habilidad)) {
-                return pok.getName();
-            }
-        }
-        return null; // Retorna null si no lo encuentra
-    }
-
+    }    
 
     // Método para obtener la lista completa 
     public List<Pokemon> getPokemones() {
         return new ArrayList<>(pokemones); // Retorna una copia para evitar modificaciones externas
     }
+
+
+    //-----------------Para manejar el archivo-------------
+
+// Buscar un Pokémon por nombre en el archivo (Map)
+public Pokemon buscarPokemon(String nombre) {
+    return pokemonMap.getOrDefault(nombre, null); // Retorna null si no lo encuentra
+}
+
+// Buscar un Pokémon por habilidad en el archivo
+public String buscarHabilidad(String habilidad) {
+    for (Pokemon pok : pokemonMap.values()) {
+        if (pok.getHabilidades().equalsIgnoreCase(habilidad)) {
+            return pok.getName();
+        }
+    }
+    return null; // Retorna null si no lo encuentra
+}
+
+// Ordenar todos los Pokémon del archivo por tipo
+public void ordenarPorTipoEnArchivo() {
+    if (pokemonMap.isEmpty()) {
+        System.out.println("No hay Pokémon en el archivo.");
+        return;
+    }
+
+    List<Pokemon> pokemonesOrdenados = new ArrayList<>(pokemonMap.values());
+    pokemonesOrdenados.sort(Comparator.comparing(Pokemon::getType1));
+
+    System.out.println("Pokémon en el archivo ordenados por tipo:");
+    for (Pokemon pok : pokemonesOrdenados) {
+        System.out.println("Tipo: " + pok.getType1() + " - Nombre: " + pok.getName());
+    }
+}
+
+
 }
