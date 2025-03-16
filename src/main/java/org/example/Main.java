@@ -1,32 +1,39 @@
 package org.example;
+import java.util.Map;
 import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String opcion ="";
+        String filePath = "pokemons.csv"; // Ruta del archivo CSV
+
         String tipo= "";
 
-
         System.out.println("Seleccione el tipo de Map a utilizar:");
-        System.out.println("1. ");
-        System.out.println("2. ");
-        System.out.println("3. ");
+        System.out.println("1. HashMap");
+        System.out.println("2. TreeMap ");
+        System.out.println("3. LinkedHashMap ");
         System.out.print("Ingrese el número de su elección: ");
         String op = scanner.nextLine();
 
             //Pasa la opción a String 
             if (op=="1") {
-                tipo = "";
+                tipo = "HashMap";
             } else if (op=="2") {
-                tipo = "";
+                tipo = "TreeMap";
             } else if (op=="3") {
-                tipo = "";
+                tipo = "LinkedHashMap";
             } else {
                 System.out.println("Opción inválida, intente de nuevo.");
                 return;
             }
+
+        // Cargar Pokémon desde el archivo
+        Map<String, Pokemon> pokemonMap = DataReader.readCSV(filePath, tipo);
+
+        MiColeccion coleccion =new MiColeccion(pokemonMap);
+        String opcion ="";
 
         while (opcion !="6"){
             System.out.println("MENU");
@@ -43,7 +50,10 @@ public class Main {
             switch (opcion) {
                 case "1":
                     // Lógica para agregar un pokemon
-                    System.out.println("Opción 1 seleccionada: Agregar un pokemon a la colección");
+                    System.out.println("Agregar un pokemon a la colección");
+                    System.out.println("Ingresa el nombre del Pokemon");
+                    String nombre = scanner.nextLine();
+                    coleccion.agregarPokemon(nombre);
                     break;
                 case "2":
                     // Lógica para mostrar los datos de un pokemon
@@ -62,7 +72,6 @@ public class Main {
                     System.out.println("Opción 5 seleccionada: Encontrar pokemon por habilidad");
                     break;
                 case "6":
-                    // Lógica para salir
                     System.out.println("Saliendo del programa");
                     break;
                 default:

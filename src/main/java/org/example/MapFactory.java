@@ -2,11 +2,11 @@ package org.example;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
-public class MapFactory<k,v> {
-
-    public Map<K> crearMap(String tipo) {
+public class MapFactory<K, V> {
+    public Map<K, V> crearMap(String tipo) {
         return switch (tipo) {
             case "HashMap" -> new HashMap<>();
             case "TreeMap" -> new TreeMap<>();
