@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -57,15 +55,26 @@ public Pokemon buscarPokemon(String nombre) {
     return pokemonMap.getOrDefault(nombre, null); // Retorna null si no lo encuentra
 }
 
-// Buscar un Pokémon por habilidad en el archivo
-public String buscarHabilidad(String habilidad) {
+
+// Buscar todos los Pokémon que tienen la habilidad especificada
+public List<String> buscarHabilidad(String habilidad) {
+    List<String> pokemonesConHabilidad = new ArrayList<>();
+
     for (Pokemon pok : pokemonMap.values()) {
-        if (pok.getHabilidades().equalsIgnoreCase(habilidad)) {
-            return pok.getName();
+        // Divide las habilidades por coma y elimina espacios extra
+        String[] habilidades = pok.getHabilidades().split(",\\s*");
+
+        for (String hab : habilidades) {
+            if (hab.equalsIgnoreCase(habilidad)) {
+                pokemonesConHabilidad.add(pok.getName());
+                break; // Evita agregar el mismo Pokémon varias veces si tiene la habilidad repetida
+            }
         }
     }
-    return null; // Retorna null si no lo encuentra
+
+    return pokemonesConHabilidad;
 }
+
 
 // Ordenar todos los Pokémon del archivo por tipo
 public void ordenarPorTipoEnArchivo() {

@@ -1,4 +1,4 @@
-package org.example;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -79,9 +79,9 @@ public class Main {
                 case "5":
                     System.out.print("Ingresa una habilidad del Pokémon: ");
                     String hab = scanner.nextLine();
-                    String resultado = coleccion.buscarHabilidad(hab);
+                    List<String> resultado = coleccion.buscarHabilidad(hab);
                     if (resultado != null) {
-                        System.out.println("El Pokémon con esa habilidad es: " + resultado);
+                        System.out.println("Los Pokemones con esa habilidad son: " + resultado);
                     } else {
                         System.out.println("No se encontró un Pokémon con esa habilidad.");
                     }
